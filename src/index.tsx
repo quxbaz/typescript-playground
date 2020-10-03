@@ -1,1 +1,1 @@
-console.log('TypeScript Sandbox')
+console.log('TYPESCRIPT SANDBOX')
