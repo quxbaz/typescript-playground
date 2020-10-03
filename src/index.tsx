@@ -1,1 +1,1 @@
-console.log('TypeScript Playground')
+console.log('TypeScript Sandbox')
