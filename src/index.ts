@@ -65,5 +65,11 @@ function optionalArg (x?:any) {
 // -----------------------------------------------------------------------------
 // Playing with the 'unknown' type.
 
-const identity = <T>(value:T) => value
-const s:string = identity('string')
+{
+  const identity = <T>(value:T) => value
+  const s:string = identity('string')
+}
+{
+  const identity = (value:unknown) => value
+  const s:string = identity('string') as string  // Need to narrow the return type to a string.
+}
