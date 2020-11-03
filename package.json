@@ -36,6 +36,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --content-base=public --port=9000",
-    "test": "webpack-dev-server --content-base=public_test"
+    "test": "webpack-dev-server --content-base=public_test",
+    "type-check": "tsc --watch --noEmit"
   }
 }
