@@ -101,6 +101,23 @@ console.log('*** TypeScript Sandbox ***')
   function fn({path='default path'}) {
     return path
   }
+
+  let obj: {} = {}
+  obj = {a: 1}
+  obj = 1
+  obj = true
+  obj = false
+  obj = 'string'
+  obj = []
+  obj = [1, 2, 3]
+  obj = function () {}
+  obj = new Date()
+  obj = Symbol()
+
+  /*
+    obj = null  // Error
+    obj = undefined  // Error
+  */
 }
 
 // -----------------------------------------------------------------------------
