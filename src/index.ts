@@ -102,22 +102,34 @@ console.log('*** TypeScript Sandbox ***')
     return path
   }
 
-  let obj: {} = {}
-  obj = {a: 1}
-  obj = 1
-  obj = true
-  obj = false
-  obj = 'string'
-  obj = []
-  obj = [1, 2, 3]
-  obj = function () {}
-  obj = new Date()
-  obj = Symbol()
+  let obj1: {} = {}
+  obj1 = {a: 1}
+  obj1 = 1
+  obj1 = true
+  obj1 = false
+  obj1 = 'string'
+  obj1 = []
+  obj1 = [1, 2, 3]
+  obj1 = function () {}
+  obj1 = new Date()
+  obj1 = Symbol()
+  // obj = null        // Error
+  // obj = undefined   // Error
 
-  /*
-    obj = null  // Error
-    obj = undefined  // Error
-  */
+  let obj2: object = {}
+  obj2 = {a: 1}
+  obj2 = []
+  obj2 = [1, 2, 3]
+  obj2 = function () {}
+  obj2 = new Date()
+  // obj2 = 1          // Error
+  // obj2 = true       // Error
+  // obj2 = false      // Error
+  // obj2 = 'string'   // Error
+  // obj2 = Symbol()   // Error
+  // obj2 = null       // Error
+  // obj2 = undefined  // Error
+
 }
 
 // -----------------------------------------------------------------------------
