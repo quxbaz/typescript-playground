@@ -1,28 +1,23 @@
 var path = require('path')
-var webpack = require('webpack')
 
 module.exports = {
-
-  entry: path.resolve(__dirname, 'src/index.tsx'),
-  devtool: 'inline-source-map',
-
+  target: 'node',
   output: {
-    filename: 'bundle.js',
-    publicPath: '/assets/',
+    path: path.resolve(__dirname, 'lib/'),
   },
-
+  devServer: {
+    writeToDisk: true,
+  },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
         include: path.resolve(__dirname, 'src'),
-      }
-    ]
+      },
+    ],
   },
-
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
   },
-
 }
