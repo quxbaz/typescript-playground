@@ -176,8 +176,23 @@ console.log('*** TypeScript Sandbox ***')
     const {value, done} = generator.next()
     if (done)
       break
-    console.log(value)
+    // console.log(value)
   }
+}
+
+// -----------------------------------------------------------------------------
+// Await, async
+{
+  async function fetchUser () {
+    return new Promise(resolve => {
+      setTimeout(() => resolve('Bob'), 1000)
+    })
+  }
+  async function main () {
+    const user = await fetchUser()
+    console.log(user)
+  }
+  main()
 }
 
 // -----------------------------------------------------------------------------
