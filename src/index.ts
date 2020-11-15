@@ -163,3 +163,24 @@ console.log('*** TypeScript Sandbox ***')
   identityOrCall(42)
   identityOrCall(() => 'x')
 }
+
+// -----------------------------------------------------------------------------
+// Generators
+{
+  function* numberGenerator (n: number): Generator<number> {
+    for (let i=0; i < n; i++)
+      yield i
+  }
+  const generator = numberGenerator(10)
+  while (true) {
+    const {value, done} = generator.next()
+    if (done)
+      break
+    console.log(value)
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Attempting to re-create the wizardry that is the Parameters<T> type.
+
+// ::TODO
