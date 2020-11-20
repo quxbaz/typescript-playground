@@ -149,6 +149,18 @@ console.log('*** TypeScript Sandbox ***')
       render () { return text }
     }
   }
+
+  interface HasObjectParam {
+    foo: string,
+    bar: string,
+    fn: <T>(arg: T) => any,
+  }
+
+  const h: HasObjectParam = {
+    foo: 'foo',
+    bar: 'bar',
+    fn: (arg) => null
+  }
 }
 
 // -----------------------------------------------------------------------------
