@@ -245,6 +245,12 @@ console.log('*** TypeScript Sandbox ***')
     id: 0,
     name: 'Bob',
   }
+
+  interface Func extends Function {}
+  const fn: Func = function () {}
+  // const a: Func = ''   // Error
+  // const b: Func = {}   // Error
+  // const c: Func = []   // Error
 }
 
 // -----------------------------------------------------------------------------
