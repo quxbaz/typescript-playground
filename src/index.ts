@@ -1,6 +1,17 @@
 console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
+// `never` type
+// `never` is a type that should never occur.
+{
+  function throwError (): never {
+    throw 'Error'
+  }
+
+  // const a: never = '' as any  // Compiler error.
+}
+
+// -----------------------------------------------------------------------------
 // interface vs. type
 {
   interface IdentityInterface { <T>(x: T): T }
@@ -226,13 +237,51 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Conditional types
-
+{
+  type NonNull<T> = T extends null | undefined ? never : T
+  type Name = 'Foo' | 'Bar' | null | undefined
+  type NonNullName = NonNull<Name>  // Type `Name` resolves to `'Foo' | 'Bar'`
+  const foo: NonNullName = 'Foo'
+  const bar: NonNullName = 'Bar'
+  // const _null: NonNullName = null  // Error
+  // const _undefined: NonNullName = undefined  // Error
+}
 
 // -----------------------------------------------------------------------------
 // `infer`
 {
-  interface Example {
-    foo: string,
-  }
-  type GenericExample<T> = T extends Examlep ? 'Foo' : 'Bar';
+  /*
+    https://dev.to/aexol/typescript-tutorial-infer-keyword-2cn
+
+    1. We check if type extends Promise.
+    2. If it does we extract the type from the promise.
+    3. If it does not leave it as is.
+  */
+  type Unpromisify<T> = T extends Promise<infer R> ? R : T
+
+  /*
+    https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types
+
+    If `T` extends the function:
+
+      (...args: any[]) => infer U`
+                ^           ^
+                |           | `infer` can infer the return type of the function.
+                |
+                | `any` can be assigned to any type, so this should fit any function type signature.
+
+    ...Then return the type `U` which is the return type of `T`
+    ...Else it means `T` does not extend the type `(...args: any[]) => U` and
+    return the type `never`. This means type `T` is not a function.
+  */
+  type GetReturnType<T> = T extends (...args: any[]) => infer U ? U : never
+
+  type Foo = GetReturnType<() => number>
+  //   ^ = type Foo = number
+
+  type Bar = GetReturnType<(x: string) => string>
+  //   ^ = type Bar = string
+
+  type Baz = GetReturnType<(a: boolean, b: boolean) => boolean[]>
+  //   ^ = type Baz = boolean[]Try
 }
