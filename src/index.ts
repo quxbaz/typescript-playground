@@ -2,7 +2,6 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // interface vs. type
-
 {
   interface IdentityInterface { <T>(x: T): T }
   const identityA: IdentityInterface = (x) => x
@@ -22,7 +21,6 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Attempting to add 'Key' types.
-
 {
   type Key = number | string
 
@@ -43,14 +41,12 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Mapped object types
-
 {
   const obj:{[key: string]: number} = {a: 1, b: 2, c: 3}
 }
 
 // -----------------------------------------------------------------------------
 // Defining a function that can take any arguments.
-
 {
   const anyArgs = (...args: unknown[]) => args[0]
   let arg = anyArgs(1) as number
@@ -59,7 +55,6 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Defining a function with an optional argument.
-
 {
   function optionalArg (x?: any) {
     return x
@@ -68,7 +63,6 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Playing with the 'unknown' type.
-
 {
   const identity = <T>(value: T) => value
   const s: string = identity('string')
@@ -80,21 +74,19 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Type guards
-
 {
   const sum = (arr: number[]): number => arr.reduce((x, y) => x + y)
   const isNumber = (value: unknown): value is number => typeof value === 'number'
-  const value: unknown = sum([1, 2, 3])
+  const value: unknown = sum([1, 2, 3])  // `value` type is unknown even after execution.
+
   // This is the type guard. It narrows down the 'unknown' value to a number.
   if (isNumber(value)) {
     const newValue: number = value
   }
 }
 
-
 // -----------------------------------------------------------------------------
 // Objects
-
 {
   const returnObject = (): {} => ({a: 1, b: 2})
 
@@ -134,7 +126,6 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Function interface with generic type
-
 {
   interface Component<Props={}> {
     (props: Props): {},
@@ -151,11 +142,10 @@ console.log('*** TypeScript Sandbox ***')
 
 // -----------------------------------------------------------------------------
 // Function that can take a value or function.
-
 {
   function identityOrCall <T>(value: T): T {
     if (typeof value === 'function')
-      return value()  // Type 'T' is narrowed down to 'any'
+      return value()  // Type 'T' is widened to 'any'
     else
       return value
   }
@@ -192,10 +182,57 @@ console.log('*** TypeScript Sandbox ***')
     const user = await fetchUser()
     console.log(user)
   }
+  // main()
+}
+
+// -----------------------------------------------------------------------------
+// ::TODO:: Attempting to re-create the wizardry that is the Parameters<T> type.
+//
+//
+
+// -----------------------------------------------------------------------------
+// `in`
+{
+  // Only `type` works here, not `interface`. Also, you cannot specify
+  // additional properties on `User.`
+  type User = {
+    [K in 'id' | 'first' | 'last']?: string;
+  }
+  const main = function () {
+    const user: User = {
+      id: '0',
+      first: 'Foo',
+      last: 'Bar',
+      // middle: 'Qux',  // `middle` not an allowed property of `User` type.
+    }
+  }
   main()
 }
 
 // -----------------------------------------------------------------------------
-// Attempting to re-create the wizardry that is the Parameters<T> type.
+// `extends`
+{
+  interface User {
+    name: string,
+  }
+  interface DBUser extends User {
+    id: number,
+  }
+  const user: DBUser = {
+    id: 0,
+    name: 'Bob',
+  }
+}
 
-// ::TODO
+// -----------------------------------------------------------------------------
+// Conditional types
+
+
+// -----------------------------------------------------------------------------
+// `infer`
+{
+  interface Example {
+    foo: string,
+  }
+  type GenericExample<T> = T extends Examlep ? 'Foo' : 'Bar';
+}
